@@ -1,0 +1,19 @@
+{
+  "name": "bergen",
+  "version": "1.0.0",
+  "description": "A Game of Doors",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Karl Lilje",
+  "license": "ISC",
+  "dependencies": {
+    "phaser": "^3.22.0"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.1",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10"
+  }
+}
