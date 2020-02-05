@@ -1,5 +1,6 @@
 import MenuScene from "./scene_menu.js";
 import MainScene from "./scene_main.js";
+import ScoreScene from "./scenes/scene_scores.js";
 
 var config = {
     type: Phaser.AUTO,
@@ -11,7 +12,7 @@ var config = {
             gravity: { y: 200 }
         }
     },    
-    scene : [MenuScene,MainScene,GameServer],
+    scene : [MenuScene,MainScene,GameServer, ScoreScene],
     audio: {
         disableWebAudio: false
     }

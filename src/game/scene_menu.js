@@ -8,8 +8,7 @@ class MenuScene extends Phaser.Scene {
         
     constructor ()
     {
-        super('MenuScene');      
-        //this.musicEnabled = true;  
+        super('MenuScene');
     }
 
     preload ()
@@ -19,6 +18,7 @@ class MenuScene extends Phaser.Scene {
         this.load.image("play", "play64b.png");
         this.load.image('logo2', 'logo.png');
         this.load.image('smoke', 'smoke.png');
+        this.load.image('scores', 'scores.png');
         this.load.image('soundOff', 'sound_off.png');
         this.load.image('soundOn', 'sound_on.png');
         this.load.audio('theme', [
@@ -37,15 +37,20 @@ class MenuScene extends Phaser.Scene {
         this.menuNumber = 0;
         this.add.image(400, 300, 'sky2');
 
-        this.add.image(400, 300, 'play')
+        let play = this.add.image(400, 300, 'play')
             .setInteractive()
             .on('pointerdown', ()=>this.startGame());
 
-        // on mouse click
-        this.input.on('pointerup', () => {
-            console.log("menudown");                    
-        }, this);
-
+            this.tweens.add({
+                targets: play,
+                y: 320,
+                duration: 1000,
+                ease: 'Power2',
+                yoyo: true,
+                repeat: 30,
+                delay: 100
+            });
+       
         var particles = this.add.particles('smoke');
 
         var emitter = particles.createEmitter({
@@ -54,20 +59,30 @@ class MenuScene extends Phaser.Scene {
             blendMode: 'ADD'
         });
 
+        //add the logo and some steam
         var logo = this.physics.add.image(400, 100, 'logo2').setInteractive();
-        
-
         logo.setVelocity(300, 200);
         logo.setBounce(1, 1);
         logo.setCollideWorldBounds(true);
-
         emitter.startFollow(logo);
+
+        let scores = this.add.image(400, 450, 'scores')
+        .setInteractive()
+        .on('pointerdown', ()=>this.showScores());
 
         this.soundControlOn = new ToggleButton(this, 400, 500, 'soundOn', this.toggleAudio); 
         this.add.existing(this.soundControlOn);
         this.soundControlOff = new ToggleButton(this, 400, 500, 'soundOff', this.toggleAudio); 
         this.add.existing(this.soundControlOff);
-        this.soundControlOff.setVisible(false);
+        if ( GameState.AudioEnabled) {
+            this.soundControlOff.setVisible(false);
+            this.soundControlOn.setVisible(true);
+        }
+        else {
+            this.soundControlOff.setVisible(true);
+            this.soundControlOn.setVisible(false);
+        }
+        
     }
 
     toggleAudio(context) {
@@ -84,8 +99,11 @@ class MenuScene extends Phaser.Scene {
             context.music.stop();
             context.soundControlOn.setVisible(false);
             context.soundControlOff.setVisible(true);
-        }
-        
+        }        
+    }
+
+    showScores(context) {
+        this.scene.start("ScoreScene", "from_menu");
     }
 
     startGame() {

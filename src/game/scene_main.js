@@ -66,7 +66,8 @@ class MainScene extends Phaser.Scene {
         this.menuButton = new ToggleButton(this, 700, 15, 'back', this.quitGame); 
         this.add.existing(this.menuButton);
 
-        this.newGame();        
+        GameServer.NewGame();
+        this.newGame();
         
         this.lockInput = false;
     }
@@ -119,10 +120,12 @@ class MainScene extends Phaser.Scene {
 
     clickHandler (pointer, box)
     {
-        if ( this.lockInput == true) return ;
-        console.log("an object clicked");
+        if ( this.lockInput == true) return ;        
         console.log(box.ObjectID);
-        this.audioSlide.play(); 
+        if ( GameState.AudioEnabled){
+            this.audioSlide.play(); 
+        }
+        
         this.text.text = "Checking cup...";
         this.lockInput = true;
 
@@ -131,7 +134,9 @@ class MainScene extends Phaser.Scene {
         if ( win == true ){
             this.text.text = Constants.winner();
             
-            this.audioCash.play();
+            if ( GameState.AudioEnabled){
+                this.audioCash.play();
+            }
             //swap graphic with winning cup
             var cup1 = new Cup(this, box.x, box.y, 'cupwin', 'Latte');        
             this.add.existing(cup1);
@@ -143,7 +148,7 @@ class MainScene extends Phaser.Scene {
                 ease: 'Cubic.Out',
                 delay: 0,
                 duration: 200,
-                completeDelay: 800,
+                completeDelay: 400,
                 onComplete: this.responseDidWin,
                 callbackScope: this
             });
@@ -160,7 +165,7 @@ class MainScene extends Phaser.Scene {
                 ease: 'Linear',
                 delay: 0,
                 duration: 200,
-                completeDelay: 800,
+                completeDelay: 400,
                 onComplete: this.responseDidLose,
                 callbackScope: this
             });
@@ -188,7 +193,7 @@ class MainScene extends Phaser.Scene {
 
         this.text = this.add.text(10, 10, Constants.gameName());
         //this.textCoins = this.add.text(340, 10, "Coins " + GameServer.GetCoins());
-        this.textCoins = this.add.text(180, 50, "Coins " + GameServer.GetCoins(), { fontFamily: "Arial Black", fontSize: 74, color: "#964b00" });
+        this.textCoins = this.add.text(190, 50, "Coins " + GameServer.GetCoins(), { fontFamily: "Arial Black", fontSize: 74, color: "#964b00" });
         this.textCoins.setStroke('#c67b30', 16);        
         this.textCoins.setShadow(2, 2, '#333333', 2, true, false);
         
@@ -200,10 +205,7 @@ class MainScene extends Phaser.Scene {
         this.text.strokeThickness = 2;
         this.text.setShadow(5, 5, 'rgba(0,0,0,0.5)', 5);
     
-        this.text.inputEnabled = true;
-
-        
-        
+        this.text.inputEnabled = true;        
     }
 
     out() {
