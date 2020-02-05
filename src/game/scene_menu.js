@@ -1,3 +1,6 @@
+import ToggleButton from './togglebutton.js';
+import GameState from './state.js';
+
 /*******************************
  *     Menu and Settings       *
  *******************************/
@@ -5,7 +8,8 @@ class MenuScene extends Phaser.Scene {
         
     constructor ()
     {
-        super('MenuScene');
+        super('MenuScene');      
+        //this.musicEnabled = true;  
     }
 
     preload ()
@@ -15,6 +19,8 @@ class MenuScene extends Phaser.Scene {
         this.load.image("play", "play64b.png");
         this.load.image('logo2', 'logo.png');
         this.load.image('smoke', 'smoke.png');
+        this.load.image('soundOff', 'sound_off.png');
+        this.load.image('soundOn', 'sound_on.png');
         this.load.audio('theme', [
             './audio/myrobot_karllilje.ogg',
             './audio/myrobot_karllilje.mp3'
@@ -23,19 +29,21 @@ class MenuScene extends Phaser.Scene {
 
     create ()
     {
-        this.music = this.sound.add('theme', {volume:0.01});     
-        this.music.play(); 
+        if (( this.music == null )  && ( GameState.AudioEnabled)){
+            this.music = this.sound.add('theme', {volume:0.01});
+            this.music.play(); 
+        }
+        
         this.menuNumber = 0;
-                this.add.image(400, 300, 'sky2');
+        this.add.image(400, 300, 'sky2');
 
-        let play = this.add.image(400, 300, 'play');
+        this.add.image(400, 300, 'play')
+            .setInteractive()
+            .on('pointerdown', ()=>this.startGame());
 
-        // on mouse click, goto scene B
+        // on mouse click
         this.input.on('pointerup', () => {
-            console.log("menudown");        
-            //game.scene.start("MainScene", "from_menu");                    
-            
-            this.scene.start("MainScene", "from_menu");
+            console.log("menudown");                    
         }, this);
 
         var particles = this.add.particles('smoke');
@@ -46,7 +54,8 @@ class MenuScene extends Phaser.Scene {
             blendMode: 'ADD'
         });
 
-        var logo = this.physics.add.image(400, 100, 'logo2');
+        var logo = this.physics.add.image(400, 100, 'logo2').setInteractive();
+        
 
         logo.setVelocity(300, 200);
         logo.setBounce(1, 1);
@@ -54,7 +63,33 @@ class MenuScene extends Phaser.Scene {
 
         emitter.startFollow(logo);
 
-    //    this.input.on('gameobjectup', this.clickHandler, this)
+        this.soundControlOn = new ToggleButton(this, 400, 500, 'soundOn', this.toggleAudio); 
+        this.add.existing(this.soundControlOn);
+        this.soundControlOff = new ToggleButton(this, 400, 500, 'soundOff', this.toggleAudio); 
+        this.add.existing(this.soundControlOff);
+        this.soundControlOff.setVisible(false);
+    }
+
+    toggleAudio(context) {
+        GameState.AudioEnabled = !GameState.AudioEnabled;
+        //context.musicEnabled = !context.musicEnabled;
+        console.log("sound Toggle " + context.music);    
+        //context.soundControl.setVisible(false);
+        if ( GameState.AudioEnabled ) {
+            context.music.play();
+            context.soundControlOn.setVisible(true);
+            context.soundControlOff.setVisible(false);
+        }
+        else {
+            context.music.stop();
+            context.soundControlOn.setVisible(false);
+            context.soundControlOff.setVisible(true);
+        }
+        
+    }
+
+    startGame() {
+        this.scene.start("MainScene", "from_menu");
     }
 
     clickHandler (pointer, box)

@@ -27,6 +27,11 @@ class GameServer extends Phaser.Scene {
         return Instance.newGame();
     }
 
+    static EndGame() {
+        console.log("ending game");
+        return true;
+    }
+
     constructor() {
         super('GameServer');
 

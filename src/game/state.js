@@ -11,8 +11,15 @@
 
  //var GameState = STATE_MENU;
 
- export default class GameState {
+var _AudioEnabled = true;
 
+ export default class GameState {
+    static get AudioEnabled() {
+        return _AudioEnabled;
+    }
+    static set AudioEnabled(enabled){
+        _AudioEnabled = enabled;
+    }
  }
 
  

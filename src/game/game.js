@@ -10,11 +10,7 @@ var config = {
         arcade: {
             gravity: { y: 200 }
         }
-    },
-    /*scene: {
-        preload: preload,
-        create: create
-    },*/
+    },    
     scene : [MenuScene,MainScene,GameServer],
     audio: {
         disableWebAudio: false
