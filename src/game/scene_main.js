@@ -65,8 +65,7 @@ class MainScene extends Phaser.Scene {
         
         this.menuButton = new ToggleButton(this, 700, 15, 'back', this.quitGame); 
         this.add.existing(this.menuButton);
-
-        GameServer.NewGame();
+        
         this.newGame();
         
         this.lockInput = false;
@@ -78,7 +77,8 @@ class MainScene extends Phaser.Scene {
     }
 
     newGame() {
-        GameServer.NewGame();
+        GameServer.NewGame();        
+        this.scene.get('GameServer').events.emit('GameEvent', "123");
 
         //Get initial ordering from server        
         var cup1 = new Cup(this, 600, 390, 'cup', 'Latte');        
@@ -171,7 +171,6 @@ class MainScene extends Phaser.Scene {
             });
         }
 
-
         this.textCoins.text = "Coins " + GameServer.GetCoins();        
         //  Dispatch a Scene event
         this.events.emit('CheckScore');
@@ -195,8 +194,7 @@ class MainScene extends Phaser.Scene {
         //this.textCoins = this.add.text(340, 10, "Coins " + GameServer.GetCoins());
         this.textCoins = this.add.text(190, 50, "Coins " + GameServer.GetCoins(), { fontFamily: "Arial Black", fontSize: 74, color: "#964b00" });
         this.textCoins.setStroke('#c67b30', 16);        
-        this.textCoins.setShadow(2, 2, '#333333', 2, true, false);
-        
+        this.textCoins.setShadow(2, 2, '#333333', 2, true, false);        
     
         this.text.font = 'Fontdiner Swanky';
         this.text.fontSize = 60;        

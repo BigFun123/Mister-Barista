@@ -56,10 +56,13 @@ class GameServer extends Phaser.Scene {
     }    
 
     create() {
-        var ee = Phaser.Events.EventEmitter;
-        ee.on("CheckScore", ()=> {
-                console.log("clicky");
-        });
+        this.events.on('gameEvent', this.handler, this);
+        this.events.emit('gameEvent');
+    }
+
+    handler ()
+    {
+        console.log("event");
     }
 
     newGame() {

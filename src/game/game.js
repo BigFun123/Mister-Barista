@@ -19,6 +19,7 @@ var config = {
 };
 
 var game = new Phaser.Game(config);
+game.scene.start("GameServer", "fromStart");
 
 /*class Game extends Phaser.Game {
     constructor() {

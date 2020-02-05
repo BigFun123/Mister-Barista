@@ -25,6 +25,10 @@ class MenuScene extends Phaser.Scene {
             './audio/myrobot_karllilje.ogg',
             './audio/myrobot_karllilje.mp3'
         ]);
+        this.load.audio('slide', [
+            './audio/slide.ogg',
+            './audio/slide.mp3'
+        ]);
     }
 
     create ()
@@ -33,6 +37,8 @@ class MenuScene extends Phaser.Scene {
             this.music = this.sound.add('theme', {volume:0.01});
             this.music.play(); 
         }
+
+        this.audioSlide = this.sound.add('slide', {volume:0.1});             
         
         this.menuNumber = 0;
         this.add.image(400, 300, 'sky2');
@@ -66,9 +72,11 @@ class MenuScene extends Phaser.Scene {
         logo.setCollideWorldBounds(true);
         emitter.startFollow(logo);
 
-        let scores = this.add.image(400, 450, 'scores')
-        .setInteractive()
-        .on('pointerdown', ()=>this.showScores());
+        //let scores = this.add.image(400, 450, 'scores')
+        //.setInteractive()
+        //.on('pointerdown', ()=>this.showScores());
+        this.scores = new ToggleButton(this, 400, 460, 'scores', this.showScores); 
+        this.add.existing(this.scores);
 
         this.soundControlOn = new ToggleButton(this, 400, 500, 'soundOn', this.toggleAudio); 
         this.add.existing(this.soundControlOn);
@@ -103,10 +111,13 @@ class MenuScene extends Phaser.Scene {
     }
 
     showScores(context) {
-        this.scene.start("ScoreScene", "from_menu");
+        context.scene.start("ScoreScene", "from_menu");
     }
 
     startGame() {
+        if ( GameState.AudioEnabled){
+            this.audioSlide.play(); 
+        }
         this.scene.start("MainScene", "from_menu");
     }
 
