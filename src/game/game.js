@@ -1,4 +1,5 @@
-//import MenuScene from "scene_menu"
+import MenuScene from "./scene_menu.js";
+import MainScene from "./scene_main.js";
 
 var config = {
     type: Phaser.AUTO,
@@ -14,7 +15,7 @@ var config = {
         preload: preload,
         create: create
     },*/
-    scene : [MenuScene,MainScene],
+    scene : [MenuScene,MainScene,GameServer],
     audio: {
         disableWebAudio: false
     }
@@ -22,21 +23,12 @@ var config = {
 
 var game = new Phaser.Game(config);
 
-function init() {
-    console.log("init");
-
-
-    
-    Phaser.GameObjects.GameObjectFactory.register('cup', function (x, y)
-    {
-        let sprite = new Cup(this.scene, x, y);
-
-        this.displayList.add(sprite);
-        this.updateList.add(sprite);
-
-        return sprite;
-    });
-    
+/*class Game extends Phaser.Game {
+    constructor() {
+        super(window.innerWidth * window.devicePixelRatio, window.innerHeight * window.devicePixelRatio, Phaser.AUTO);
+    }
 }
-init();
+
+new Game(config);
+*/
 

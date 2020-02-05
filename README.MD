@@ -12,7 +12,7 @@ Please answer the following questions:
 1. What is easing? 
 Smoothing or spline algorithms to make animations or transitions more gentle over time, especially at starts and stops.
 
-Write few types of easing. 
+Write few types of easing.
 EaseIn, EaseOut, EaseInOut, Bounce, easeInSine, easeInQuad (t => t*t)
 
 Where would you apply easing functions? 
@@ -30,16 +30,16 @@ What is the super-set of Promises?
 ES6, (implemented via HttpRequest et al), Promises are not fundamental types in JavaScript
 
 3. Which non programmable parts of the graphics pipeline can be used to speed up rendering and improve performance. Please give examples.
-More compact / lower resolution textures, smaller textures.
-Using native texture formats on IOS (e.g. PVRTC, MeTaL), Android (etc2), Windows DirectX(dds), PlayStation etc (as the decompressors are typically hardware accelerated and proprietary)
+More compact / lower resolution textures, smaller textures, power of 2 textures for older devices, tightly cropped iamges
+Native texture formats on IOS (e.g. PVRTC, MeTaL), Android (etc2), Windows DirectX(dds), PlayStation etc (as the decompressors are typically hardware accelerated and proprietary)
 Avoiding Alpha channels and alpha blends (realtime compositing) where possible
 Render using the Lowest Screen / Canvas Resolution possible
 Avoid dynamic upates of e.g. text strings, rather pre-render as much as possible or cache / pool renders.
 
 4. Pick three design patterns that are in your opinion most useful for game development, describe them and write a short example how would you use them in development process.
-Singleton - Useful as containers instead of globals, only one can be instanced, e.g. an Audio Engine service.
+Singleton - Useful as containers instead of globals, only one can be instanced, e.g. an Audio Engine service, Querying state of a service.
 Factory Pattern - Creates object instances. Useful for debugging object creation, and for swapping different objects easily
-Mediator Pattern - Separates objects from their messages. Acts like a pub-sub / central nervous system, for 'opt in' message handling. Easy to swap components, easy to debug, and robust.
+Mediator Pattern - Separates objects from their messages & events. Acts like a pub-sub / central nervous system, for 'opt in' message handling. Easy to swap components, easy to debug, and robust.
 
 5. Explain Redux design pattern.
 Manages program state in a single object, and emits uni-directional observable message/event flow.
