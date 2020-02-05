@@ -13,7 +13,8 @@ Uses a mock game server to simulate game logic
 (src/mocks/gameserver)
 
 Menu Screen:
-![GitHub Logo](/images/logo.png)
-Format: ![Alt Text](url)
+![Menu Screen](/doc/screen0.JPG)
+
 
 Game Screen:
+![Game Screen](/doc/screen1.JPG)
