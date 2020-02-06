@@ -16,12 +16,12 @@ class MenuScene extends Phaser.Scene {
         this.load.image("play", "play64b.png");
         this.load.image('logo2', 'logo.png');
         this.load.image('smoke', 'smoke.png');
-        this.load.image('scores', 'scores.png');
+        this.load.image('scores', 'scores_large.png');
         this.load.image('soundOff', 'sound_off.png');
         this.load.image('soundOn', 'sound_on.png');
         this.load.audio('theme', [
-            './audio/myrobot_karllilje.ogg',
-            './audio/myrobot_karllilje.mp3'
+            './audio/misterbarista_karllilje.ogg',
+            './audio/misterbarista_karllilje.mp3'
         ]);
         this.load.audio('slide', [
             './audio/slide.ogg',
@@ -41,11 +41,11 @@ class MenuScene extends Phaser.Scene {
 
     setupAudio() {
         if ((this.music == null) && (GameState.AudioEnabled)) {
-            this.music = this.sound.add('theme', { volume: 0.01 });
+            this.music = this.sound.add('theme', { volume: GameState.MusicVolume });
             this.music.play();
         }
 
-        this.audioSlide = this.sound.add('slide', { volume: 0.1 });
+        this.audioSlide = this.sound.add('slide', { volume: GameState.AudioVolume });
     }
 
     setupAudioControl() {

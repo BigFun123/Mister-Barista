@@ -17,7 +17,7 @@ class MainScene extends Phaser.Scene {
     preload() {
         this.load.setBaseURL('../../assets/');
         this.load.image("table", "table2.jpg");
-        this.load.image("back", "back.jpg");
+        this.load.image("back", "back.png");
         this.load.image("cup", "cup1_sm.png");
         this.load.image("cupwin", "cup1_sm_win.png");
         this.load.image("cuplose", "cup1_sm_lose.png");
@@ -109,7 +109,7 @@ class MainScene extends Phaser.Scene {
      * Updates UI text to match Game Server Truth
      */
     updateUI() {
-        this.textCoins.text = "Coins " + GameServer.GetCoins();
+        this.textCoins.text = Constants.coins() + " " + GameServer.GetCoins();
     }
 
     gameReady() {
@@ -246,7 +246,7 @@ class MainScene extends Phaser.Scene {
         this.coin.setVisible(true);
         this.coin.setActive(true);
         this.coin.x = cup.x;
-        this.coin.y = cup.y - 100;
+        this.coin.y = cup.y + Constants.coinOffset;
         this.children.bringToTop(this.coin);
         this.tweens.add({
             targets: this.coin,
@@ -265,18 +265,9 @@ class MainScene extends Phaser.Scene {
     createText() {
         this.text = this.add.text(10, 10, Constants.gameName());
         //this.textCoins = this.add.text(340, 10, "Coins " + GameServer.GetCoins());
-        this.textCoins = this.add.text(250, 50, "Coins " + GameServer.GetCoins(), { fontFamily: "Arial Black", fontSize: 54, color: "#964b00" });
+        this.textCoins = this.add.text(250, 50, Constants.coins() + " " + GameServer.GetCoins(), { fontFamily: "Arial Black", fontSize: 54, color: "#964b00", align:'center' });
         this.textCoins.setStroke('#d68b40', 8);
-        this.textCoins.setShadow(2, 2, '#333333', 2, true, false);
-
-        this.text.font = 'Fontdiner Swanky';
-        this.text.fontSize = 60;
-        this.text.align = 'center';
-        this.text.stroke = '#000000';
-        this.text.strokeThickness = 2;
-        this.text.setShadow(5, 5, 'rgba(0,0,0,0.5)', 5);
-
-        this.text.inputEnabled = true;
+        this.textCoins.setShadow(0, 0, '#333333', 2, true, true);
     }
 }
 

@@ -20,6 +20,9 @@ export default class AGameServer extends Phaser.Scene {
     static GetCoins() {
         return 0
     }
+    static GetScores() {
+        return [];
+    }  
 
     createGame() {
         AGameServer._handler.onGameCreated()

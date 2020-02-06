@@ -17,7 +17,7 @@ class ScoreScene extends Phaser.Scene {
     {
         this.load.setBaseURL('../../../assets/');
         this.load.image("sky2", "sky.jpg");
-        this.load.image("back", "back.jpg");
+        this.load.image("back", "back.png");
     }
 
     create ()
@@ -36,11 +36,17 @@ class ScoreScene extends Phaser.Scene {
     showScores() {
         var scores = GameServer.GetScores();
 
-        Object.entries(scores).map(([index, entry]) => {
-            console.log(index)
-            console.log(entry)
-            this.text = this.add.text(210, 50 + index* 20, entry.name + " " + entry.score);
-        });
+        Object.entries(scores)
+            .slice(0, 10)
+            .map(([index, entry]) => {                
+                this.text = this.add.text(280, 50 + index* 40, entry.name , { fontFamily: "Arial Black", fontSize: 34, color: "#964b00" });             
+                this.text.setStroke('#e69b50', 4);
+                this.text.setShadow(2, 2, '#333333', 2, true, false);
+
+                this.text = this.add.text(440, 50 + index* 40, entry.score, { fontFamily: "Arial Black", fontSize: 34, color: "#964b00" });             
+                this.text.setStroke('#e69b50', 4);
+                this.text.setShadow(2, 2, '#333333', 2, true, false);
+            });
 
         this.text = this.add.text(10, 10, Constants.gameName() + " " + Constants.version());
     }
