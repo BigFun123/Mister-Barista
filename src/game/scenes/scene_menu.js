@@ -84,7 +84,7 @@ class MenuScene extends Phaser.Scene {
 
     setupPlayButton() {
         let play = this.add.image(400, 300, 'play')
-        .setInteractive()
+        .setInteractive({useHandCursor:true})
         .on('pointerdown', () => this.startGame());
 
         this.tweens.add({
@@ -99,7 +99,7 @@ class MenuScene extends Phaser.Scene {
     }
 
     setupMenu() {
-        this.scores = new ToggleButton(this, 400, 450, 'scores', this.showScores);
+        this.scores = new ToggleButton(this, 400, 420, 'scores', this.showScores);
         this.add.existing(this.scores);
     }
 
