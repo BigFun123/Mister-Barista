@@ -1,17 +1,37 @@
 /**
  * Abstract Game Server Base Class
  */
-export default class AGameServer extends Phaser.Scene {
-    //callback handler for server events completion, typeof AGame
-    static RegisterHandler(handler){this._handler = handler} 
+export default class AGameServer extends Phaser.Scene {    
 
-    static GetCoins() {return 0}
+    constructor() {
+        super();
+        AGameServer._GameID = 1;
+        AGameServer._Instance = this;
+    }
 
-    createGame() {this._handler.onGameCreated()}
+    /**
+     * callback handler for server events completion, typeof AGame
+     * @param {*} handler : AGame
+     */
+    static RegisterHandler(handler){
+        AGameServer._handler = handler
+    } 
 
-    newGame(reinit) {this._handler.onNewGameReady(reinit)}
+    static GetCoins() {
+        return 0
+    }
 
-    CalculateWin(cup,result)  {this._handler.onGetWinResponse(cup,result)}
+    createGame() {
+        AGameServer._handler.onGameCreated()
+    }
+
+    newGame(reinit) {
+        AGameServer._handler.onNewGameReady(reinit)
+    }
+
+    CalculateWin(cup,result)  {
+        AGameServer._handler.onGetWinResponse(cup,result)
+    }
     
     static GetWin() {}
 }

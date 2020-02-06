@@ -30,48 +30,25 @@ class MenuScene extends Phaser.Scene {
     }
 
     create() {
+        this.add.image(400, 300, 'sky2');
+
+        this.setupAudio();
+        this.setupLogo();
+        this.setupPlayButton();
+        this.setupMenu();
+        this.setupAudioControl();
+    }
+
+    setupAudio() {
         if ((this.music == null) && (GameState.AudioEnabled)) {
             this.music = this.sound.add('theme', { volume: 0.01 });
             this.music.play();
         }
 
         this.audioSlide = this.sound.add('slide', { volume: 0.1 });
+    }
 
-        this.menuNumber = 0;
-        this.add.image(400, 300, 'sky2');
-
-        var particles = this.add.particles('smoke');
-
-        var emitter = particles.createEmitter({
-            speed: 100,
-            scale: { start: 0.41, end: 0 },
-            blendMode: 'ADD'
-        });
-
-        //add the logo and some steam
-        var logo = this.physics.add.image(400, 100, 'logo2').setInteractive();
-        logo.setVelocity(300, 200);
-        logo.setBounce(1, 1);
-        logo.setCollideWorldBounds(true);
-        emitter.startFollow(logo);
-
-        let play = this.add.image(400, 300, 'play')
-            .setInteractive()
-            .on('pointerdown', () => this.startGame());
-
-        this.tweens.add({
-            targets: play,
-            y: 320,
-            duration: 1000,
-            ease: 'Power2',
-            yoyo: true,
-            repeat: 30,
-            delay: 100
-        });
-
-        this.scores = new ToggleButton(this, 400, 460, 'scores', this.showScores);
-        this.add.existing(this.scores);
-
+    setupAudioControl() {
         this.soundControlOn = new ToggleButton(this, 400, 500, 'soundOn', this.toggleAudio);
         this.add.existing(this.soundControlOn);
         this.soundControlOff = new ToggleButton(this, 400, 500, 'soundOff', this.toggleAudio);
@@ -84,6 +61,46 @@ class MenuScene extends Phaser.Scene {
             this.soundControlOff.setVisible(true);
             this.soundControlOn.setVisible(false);
         }
+    }
+
+    setupLogo() {
+        var particles = this.add.particles('smoke');
+
+        var emitter = particles.createEmitter({
+            speed: 100,
+            scale: { start: 0.41, end: 0 },
+            blendMode: 'ADD'
+        });
+
+        //add the logo and some steam
+        var logo = this.physics.add.image(400, 100, 'logo2')
+            .setInteractive()
+            .setVelocity(300, 200)
+            .setBounce(1, 1)
+            .setCollideWorldBounds(true)
+            .on('pointerdown', () => console.log("hey!"));;
+        emitter.startFollow(logo);
+    }
+
+    setupPlayButton() {
+        let play = this.add.image(400, 300, 'play')
+        .setInteractive()
+        .on('pointerdown', () => this.startGame());
+
+        this.tweens.add({
+            targets: play,
+            y: 320,
+            duration: 1000,
+            ease: 'Power2',
+            yoyo: true,
+            repeat: 30,
+            delay: 100
+        });
+    }
+
+    setupMenu() {
+        this.scores = new ToggleButton(this, 400, 450, 'scores', this.showScores);
+        this.add.existing(this.scores);
     }
 
     toggleAudio(context) {

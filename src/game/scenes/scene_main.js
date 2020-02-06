@@ -3,6 +3,7 @@ import GameServer from '../../services/gameserver.js';
 import Cup from '../components/cup.js';
 import ToggleButton from '../components/togglebutton.js';
 import GameState from '../state.js';
+import Log from '../../services/log.js';
 
 /**
  * Main Game Scene
@@ -10,7 +11,7 @@ import GameState from '../state.js';
 class MainScene extends Phaser.Scene {
 
     constructor() {
-        super('MainScene');
+        super('MainScene');        
     }
 
     preload() {
@@ -31,8 +32,8 @@ class MainScene extends Phaser.Scene {
         ]);
     }
 
-    init(data) {
-        console.log(data);
+    init(data) {        
+        Log(data);
         this.text = null; //general game text
         this.textCoins = null; //text to show how many Coins 
         this.temps = []; //all our temporary objects are stored in here for easy cleanup
@@ -50,7 +51,7 @@ class MainScene extends Phaser.Scene {
 
         this.createText();
 
-        this.menuButton = new ToggleButton(this, 700, 15, 'back', this.quitGame);
+        this.menuButton = new ToggleButton(this, 730, 25, 'back', this.quitGame);
         this.add.existing(this.menuButton);
 
         this.coin = this.add.image(400, 300, 'coin');
@@ -113,7 +114,7 @@ class MainScene extends Phaser.Scene {
 
     gameReady() {
         this.lockInput = false;
-        console.log(" INPUT UNLOCKED ")
+        Log(" INPUT UNLOCKED ")
     }
 
     initCup(cup, px, py, tx, ty) {
@@ -159,7 +160,7 @@ class MainScene extends Phaser.Scene {
         }
 
         cup.clicked = true;
-        console.log(cup.ObjectID);
+        Log(cup.ObjectID);
         if (GameState.AudioEnabled) {
             this.audioSlide.play();
         }
@@ -175,7 +176,7 @@ class MainScene extends Phaser.Scene {
      * @param {*} win 
      */
     onGetWinResponse(cup,win) {
-        console.log("Received Win Response");
+        Log("Received Win Response");
         if (win == true) {
             this.text.text = Constants.winner();
             this.lockInput = true;
@@ -224,7 +225,7 @@ class MainScene extends Phaser.Scene {
 
     responseDidWin() {
         this.lockInput = false;
-        console.log("Winner Winner Chicken Dinner");
+        Log("Winner Winner Chicken Dinner");
         this.updateUI();
 
         this.newGame(false); //don't need to reinit objects, can reuse them
@@ -232,7 +233,7 @@ class MainScene extends Phaser.Scene {
 
     responseDidLose() {
         this.lockInput = false;
-        console.log("Oh noes you lose");
+        Log("Oh noes you lose");
         this.textCoins.text = "Coins " + GameServer.GetCoins();
         this.text.text = Constants.notThisOne();
     }

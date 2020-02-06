@@ -1,16 +1,15 @@
 import AGameServer from "../services/agameserver.js";
+import Log from '../services/log.js';
 
 /********************************
   Mock Game Server for Testing 
   v 0.01 Mister Barista
  ********************************/
 
-let Instance = null;
 let _Coins = 100;
 var CurrentTarget = "";
 var Cups = ["Latte", "Cuppucino", "Americano"];
-var seed = 12;
-var _GameID = 1;
+var _Seed = 12;
 var _HighScores = [
     {
         name:"jonl", 
@@ -26,17 +25,16 @@ class MockGameServer extends AGameServer {
 
     constructor() {
         super('GameServer');
-        Instance = this;        
-    }
-    static RegisterHandler(handler){Instance._handler = handler}
+        //Instance = this;        
+    }    
 
     static get GameID() {
         return _GameID;
     }
 
     static GetWin(cup) {
-        console.log( "Player selected : " + cup.ObjectID + " --- Current Game is :" + CurrentTarget);
-        return Instance.CalculateWin(cup);
+        Log( "Player selected : " + cup.ObjectID + " --- Current Game is :" + CurrentTarget);
+        return MockGameServer._Instance.CalculateWin(cup);
     }
 
     static GetCoins() {
@@ -44,7 +42,7 @@ class MockGameServer extends AGameServer {
     }
 
     static CreateGame() {                
-        return Instance.createGame();
+        return MockGameServer._Instance.createGame();
     }
 
     /**
@@ -52,11 +50,11 @@ class MockGameServer extends AGameServer {
      * @param {*} reinit : reinitialize assets, false = pooling
      */
     static NewGame(reinit) {        
-        return Instance.newGame(reinit);
+        return MockGameServer._Instance.newGame(reinit);
     }
 
     static EndGame() {
-        console.log("ending game");
+        Log("ending game");
         _HighScores.push( { name:"player", score:_Coins } );
         return true;
     }
@@ -69,16 +67,16 @@ class MockGameServer extends AGameServer {
     }
 
     createGame() {
-        console.log( "MockGameServer:createGame");
+        Log( "MockGameServer:createGame");
         _Coins = 100;        
         super.createGame();
     }
 
     newGame(reinit) {
-        console.log( "MockGameServer:newGame");
+        Log( "MockGameServer:newGame");
         var n = MockGameServer.getRndInteger(0,Cups.length-1);
         CurrentTarget = Cups[n];
-        console.log("Current Target:" + CurrentTarget);
+        Log("Current Target:" + CurrentTarget);
         super.newGame(reinit);
     }
 
@@ -90,7 +88,7 @@ class MockGameServer extends AGameServer {
      */
     static getRndInteger(min, max) {
         //return Math.floor(Math.random() * (max - min + 1) ) + min; //steady loss?
-        var x = Math.sin(seed++) * 10000;
+        var x = Math.sin(_Seed++) * 10000;
         return Math.floor((x - Math.floor(x))* (max - min + 1)) + min; //steady value
       }
 

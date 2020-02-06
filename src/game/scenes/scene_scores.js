@@ -23,7 +23,7 @@ class ScoreScene extends Phaser.Scene {
     create ()
     {
         this.add.image(400, 300, 'sky2');
-        this.menuButton = new ToggleButton(this, 700, 15, 'back', this.startGame); 
+        this.menuButton = new ToggleButton(this, 700, 25, 'back', this.startGame); 
         this.add.existing(this.menuButton);
         this.text = this.add.text(10, 10, Constants.gameName() + " " + Constants.version());
         this.showScores();
