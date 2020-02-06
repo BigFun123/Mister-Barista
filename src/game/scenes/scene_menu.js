@@ -5,14 +5,12 @@ import GameState from '../state.js';
  *     Menu and Settings       *
  *******************************/
 class MenuScene extends Phaser.Scene {
-        
-    constructor ()
-    {
+
+    constructor() {
         super('MenuScene');
     }
 
-    preload ()
-    {
+    preload() {
         this.load.setBaseURL('../../assets/');
         this.load.image("sky2", "sky.jpg");
         this.load.image("play", "play64b.png");
@@ -31,18 +29,17 @@ class MenuScene extends Phaser.Scene {
         ]);
     }
 
-    create ()
-    {
-        if (( this.music == null )  && ( GameState.AudioEnabled)){
-            this.music = this.sound.add('theme', {volume:0.01});
-            this.music.play(); 
+    create() {
+        if ((this.music == null) && (GameState.AudioEnabled)) {
+            this.music = this.sound.add('theme', { volume: 0.01 });
+            this.music.play();
         }
 
-        this.audioSlide = this.sound.add('slide', {volume:0.1});             
-        
+        this.audioSlide = this.sound.add('slide', { volume: 0.1 });
+
         this.menuNumber = 0;
         this.add.image(400, 300, 'sky2');
-       
+
         var particles = this.add.particles('smoke');
 
         var emitter = particles.createEmitter({
@@ -59,8 +56,8 @@ class MenuScene extends Phaser.Scene {
         emitter.startFollow(logo);
 
         let play = this.add.image(400, 300, 'play')
-        .setInteractive()
-        .on('pointerdown', ()=>this.startGame());
+            .setInteractive()
+            .on('pointerdown', () => this.startGame());
 
         this.tweens.add({
             targets: play,
@@ -71,15 +68,15 @@ class MenuScene extends Phaser.Scene {
             repeat: 30,
             delay: 100
         });
-        
-        this.scores = new ToggleButton(this, 400, 460, 'scores', this.showScores); 
+
+        this.scores = new ToggleButton(this, 400, 460, 'scores', this.showScores);
         this.add.existing(this.scores);
 
-        this.soundControlOn = new ToggleButton(this, 400, 500, 'soundOn', this.toggleAudio); 
+        this.soundControlOn = new ToggleButton(this, 400, 500, 'soundOn', this.toggleAudio);
         this.add.existing(this.soundControlOn);
-        this.soundControlOff = new ToggleButton(this, 400, 500, 'soundOff', this.toggleAudio); 
+        this.soundControlOff = new ToggleButton(this, 400, 500, 'soundOff', this.toggleAudio);
         this.add.existing(this.soundControlOff);
-        if ( GameState.AudioEnabled) {
+        if (GameState.AudioEnabled) {
             this.soundControlOff.setVisible(false);
             this.soundControlOn.setVisible(true);
         }
@@ -87,13 +84,12 @@ class MenuScene extends Phaser.Scene {
             this.soundControlOff.setVisible(true);
             this.soundControlOn.setVisible(false);
         }
-        
     }
 
     toggleAudio(context) {
-        GameState.AudioEnabled = !GameState.AudioEnabled;        
-        console.log("sound Toggle " + context.music);            
-        if ( GameState.AudioEnabled ) {
+        GameState.AudioEnabled = !GameState.AudioEnabled;
+        console.log("sound Toggle " + context.music);
+        if (GameState.AudioEnabled) {
             context.music.play();
             context.soundControlOn.setVisible(true);
             context.soundControlOff.setVisible(false);
@@ -102,7 +98,7 @@ class MenuScene extends Phaser.Scene {
             context.music.stop();
             context.soundControlOn.setVisible(false);
             context.soundControlOff.setVisible(true);
-        }        
+        }
     }
 
     showScores(context) {
@@ -110,18 +106,17 @@ class MenuScene extends Phaser.Scene {
     }
 
     startGame() {
-        if ( GameState.AudioEnabled){
-            this.audioSlide.play(); 
+        if (GameState.AudioEnabled) {
+            this.audioSlide.play();
         }
         this.scene.start("MainScene", "from_menu");
     }
 
-    clickHandler (pointer, box)
-    {
-        this.scene.start("MainScene", "from_menu");        
+    clickHandler(pointer, box) {
+        this.scene.start("MainScene", "from_menu");
     }
 
-    update( ) {        
+    update() {
     }
 }
 

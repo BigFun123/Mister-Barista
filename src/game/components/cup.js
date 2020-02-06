@@ -1,3 +1,6 @@
+/**
+ * A clickable Cup
+ */
 export default class Cup extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y, ImageID, ObjectID) {
         super(scene, x, y, ImageID);
@@ -15,7 +18,9 @@ export default class Cup extends Phaser.GameObjects.Sprite {
     }
 }
 
-//factory for creating cups
+/**
+ * Factory plugin for creating cups
+ */
 class CupPlugin extends Phaser.Plugins.BasePlugin {
 
     constructor (pluginManager)
@@ -31,6 +36,3 @@ class CupPlugin extends Phaser.Plugins.BasePlugin {
     }
 
 }
-
-
-//export default Cup;

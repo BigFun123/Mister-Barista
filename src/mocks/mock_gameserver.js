@@ -34,9 +34,9 @@ class MockGameServer extends AGameServer {
         return _GameID;
     }
 
-    static GetWin(ObjectID) {
-        console.log( "Player selected : " + ObjectID + " --- Current Game is :" + CurrentTarget);
-        return Instance.CalculateWin(ObjectID);
+    static GetWin(cup) {
+        console.log( "Player selected : " + cup.ObjectID + " --- Current Game is :" + CurrentTarget);
+        return Instance.CalculateWin(cup);
     }
 
     static GetCoins() {
@@ -99,17 +99,20 @@ class MockGameServer extends AGameServer {
      * Lose? take a coin
      * @param {*} ChosenOne 
      */
-    CalculateWin(ChosenOne)  {
+    CalculateWin(cup)  {
         //if ChosenOne === GameOne, then return winner
-        if ( ChosenOne === CurrentTarget ) {
+        let result = false;
+        if ( cup.ObjectID === CurrentTarget ) {
             _Coins++;
-            return true;
+            result = true;            
         }
         else 
         {
-            _Coins>0 ? _Coins-- : _Coins = 0;
-            return false;
+            _Coins>0 ? _Coins-- : _Coins = 0;        
+            result = false;
         };        
+        super.CalculateWin(cup,result);
+        return result;
     }
 }
 

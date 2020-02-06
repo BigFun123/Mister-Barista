@@ -10,6 +10,8 @@ export default class AGameServer extends Phaser.Scene {
     createGame() {this._handler.onGameCreated()}
 
     newGame(reinit) {this._handler.onNewGameReady(reinit)}
+
+    CalculateWin(cup,result)  {this._handler.onGetWinResponse(cup,result)}
     
     static GetWin() {}
 }
