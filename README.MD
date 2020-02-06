@@ -1,4 +1,3 @@
-![Game Screen](/doc/screen1.JPG =250x)
 # Mister Barista
 by Karl Lilje 2020/02/05
 
