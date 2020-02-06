@@ -1,8 +1,10 @@
+import AGameServer from "../services/agameserver.js";
+
 /********************************
- * Mock Game Server for Testing *
+  Mock Game Server for Testing 
+  v 0.01 Mister Barista
  ********************************/
 
-let GameResult = 0;
 let Instance = null;
 let _Coins = 100;
 var CurrentTarget = "";
@@ -20,13 +22,13 @@ var _HighScores = [
     }
 ];
 
-class GameServer extends Phaser.Scene {    
+class MockGameServer extends AGameServer {    
 
     constructor() {
         super('GameServer');
-        Instance = this;
-        GameResult = "Latte";
+        Instance = this;        
     }
+    static RegisterHandler(handler){Instance._handler = handler}
 
     static get GameID() {
         return _GameID;
@@ -41,8 +43,16 @@ class GameServer extends Phaser.Scene {
         return _Coins;
     }
 
-    static NewGame() {        
-        return Instance.newGame();
+    static CreateGame() {                
+        return Instance.createGame();
+    }
+
+    /**
+     * Create a new game
+     * @param {*} reinit : reinitialize assets, false = pooling
+     */
+    static NewGame(reinit) {        
+        return Instance.newGame(reinit);
     }
 
     static EndGame() {
@@ -55,26 +65,26 @@ class GameServer extends Phaser.Scene {
         return _HighScores;
     }    
 
-    create() {
-        this.events.on('gameEvent', this.handler, this);
-        this.events.emit('gameEvent');
+    create() {        
     }
 
-    handler ()
-    {
-        console.log("event");
+    createGame() {
+        console.log( "MockGameServer:createGame");
+        _Coins = 100;        
+        super.createGame();
     }
 
-    newGame() {
-        _Coins = 100;
-        var n = GameServer.getRndInteger(0,Cups.length-1);
+    newGame(reinit) {
+        console.log( "MockGameServer:newGame");
+        var n = MockGameServer.getRndInteger(0,Cups.length-1);
         CurrentTarget = Cups[n];
         console.log("Current Target:" + CurrentTarget);
+        super.newGame(reinit);
     }
 
     /**
      * A number generator that should return a 'perfect' game, 
-     * ie always perfectly balanced odds of winning and losing 
+     * ie balanced odds of winning and losing 
      * @param {*} min 
      * @param {*} max 
      */
@@ -84,11 +94,11 @@ class GameServer extends Phaser.Scene {
         return Math.floor((x - Math.floor(x))* (max - min + 1)) + min; //steady value
       }
 
-      /**
-       * Did the player win? Give them a coin
-       * Lose? take a coin
-       * @param {*} ChosenOne 
-       */
+    /**
+     * Did the player win? Give them a coin
+     * Lose? take a coin
+     * @param {*} ChosenOne 
+     */
     CalculateWin(ChosenOne)  {
         //if ChosenOne === GameOne, then return winner
         if ( ChosenOne === CurrentTarget ) {
@@ -103,4 +113,4 @@ class GameServer extends Phaser.Scene {
     }
 }
 
-gameServer = new GameServer();
+export default MockGameServer;

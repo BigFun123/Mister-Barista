@@ -1,10 +1,10 @@
-import ToggleButton from './togglebutton.js';
-import GameState from './state.js';
+import ToggleButton from '../components/togglebutton.js';
+import GameState from '../state.js';
 
 /*******************************
  *     Menu and Settings       *
  *******************************/
-class MenuScene extends Phaser.Scene {    
+class MenuScene extends Phaser.Scene {
         
     constructor ()
     {
@@ -42,20 +42,6 @@ class MenuScene extends Phaser.Scene {
         
         this.menuNumber = 0;
         this.add.image(400, 300, 'sky2');
-
-        let play = this.add.image(400, 300, 'play')
-            .setInteractive()
-            .on('pointerdown', ()=>this.startGame());
-
-            this.tweens.add({
-                targets: play,
-                y: 320,
-                duration: 1000,
-                ease: 'Power2',
-                yoyo: true,
-                repeat: 30,
-                delay: 100
-            });
        
         var particles = this.add.particles('smoke');
 
@@ -72,9 +58,20 @@ class MenuScene extends Phaser.Scene {
         logo.setCollideWorldBounds(true);
         emitter.startFollow(logo);
 
-        //let scores = this.add.image(400, 450, 'scores')
-        //.setInteractive()
-        //.on('pointerdown', ()=>this.showScores());
+        let play = this.add.image(400, 300, 'play')
+        .setInteractive()
+        .on('pointerdown', ()=>this.startGame());
+
+        this.tweens.add({
+            targets: play,
+            y: 320,
+            duration: 1000,
+            ease: 'Power2',
+            yoyo: true,
+            repeat: 30,
+            delay: 100
+        });
+        
         this.scores = new ToggleButton(this, 400, 460, 'scores', this.showScores); 
         this.add.existing(this.scores);
 
@@ -94,10 +91,8 @@ class MenuScene extends Phaser.Scene {
     }
 
     toggleAudio(context) {
-        GameState.AudioEnabled = !GameState.AudioEnabled;
-        //context.musicEnabled = !context.musicEnabled;
-        console.log("sound Toggle " + context.music);    
-        //context.soundControl.setVisible(false);
+        GameState.AudioEnabled = !GameState.AudioEnabled;        
+        console.log("sound Toggle " + context.music);            
         if ( GameState.AudioEnabled ) {
             context.music.play();
             context.soundControlOn.setVisible(true);
@@ -123,13 +118,7 @@ class MenuScene extends Phaser.Scene {
 
     clickHandler (pointer, box)
     {
-        //  Disable our box
-        //box.input.enabled = false;
-        //box.setVisible(false);
-
-        this.scene.start("MainScene", "from_menu");
-        //  Dispatch a Scene event
-        //this.events.emit('addScore');
+        this.scene.start("MainScene", "from_menu");        
     }
 
     update( ) {        

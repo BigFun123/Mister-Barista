@@ -1,6 +1,7 @@
 import GameState from '../state.js';
-import ToggleButton from '../togglebutton.js';
+import ToggleButton from '../components/togglebutton.js';
 import Constants from '../const.js';
+import GameServer from '../../services/gameserver.js';
 
 /*******************************
  *     Menu and Settings       *
@@ -9,8 +10,7 @@ class ScoreScene extends Phaser.Scene {
         
     constructor ()
     {
-        super('ScoreScene');
-        //this.musicEnabled = true;  
+        super('ScoreScene');        
     }
 
     preload ()
@@ -39,7 +39,7 @@ class ScoreScene extends Phaser.Scene {
         Object.entries(scores).map(([index, entry]) => {
             console.log(index)
             console.log(entry)
-            this.text = this.add.text(110, 50 + index* 20, entry.name + " " + entry.score);
+            this.text = this.add.text(210, 50 + index* 20, entry.name + " " + entry.score);
         });
 
         this.text = this.add.text(10, 10, Constants.gameName() + " " + Constants.version());

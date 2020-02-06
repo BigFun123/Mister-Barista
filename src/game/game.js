@@ -1,6 +1,8 @@
-import MenuScene from "./scene_menu.js";
-import MainScene from "./scene_main.js";
+import AGame from "./agame.js";
+import MenuScene from "./scenes/scene_menu.js";
+import MainScene from "./scenes/scene_main.js";
 import ScoreScene from "./scenes/scene_scores.js";
+import GameServer from "../services/gameserver.js";
 
 var config = {
     type: Phaser.AUTO,
@@ -12,21 +14,22 @@ var config = {
             gravity: { y: 200 }
         }
     },    
-    scene : [MenuScene,MainScene,GameServer, ScoreScene],
+    scene : [MenuScene,MainScene,GameServer,ScoreScene],
     audio: {
         disableWebAudio: false
     }
 };
 
-var game = new Phaser.Game(config);
-game.scene.start("GameServer", "fromStart");
+//var game = new Phaser.Game(config);
 
-/*class Game extends Phaser.Game {
-    constructor() {
-        super(window.innerWidth * window.devicePixelRatio, window.innerHeight * window.devicePixelRatio, Phaser.AUTO);
+
+class Game extends AGame {
+    constructor(config) {
+        super(config);
+        this.scene.start("GameServer", "fromStart");
     }
 }
 
 new Game(config);
-*/
+
 
