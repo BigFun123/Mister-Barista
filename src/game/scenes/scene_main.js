@@ -269,7 +269,7 @@ class MainScene extends Phaser.Scene {
     createText() {
         this.text = this.add.text(10, 10, Constants.gameName());
         //this.textCoins = this.add.text(340, 10, "Coins " + GameServer.GetCoins());
-        this.textCoins = this.add.text(250, 50, Constants.coins() + " " + GameServer.GetCoins(), { fontFamily: "Arial Black", fontSize: 54, color: "#964b00", align:'center' });
+        this.textCoins = this.add.text(250, 50, Constants.coins() + " " + GameServer.GetCoins(), { fontFamily: "Arial Black", fontSize: 54, color: "#964b00"});
         this.textCoins.setStroke('#d68b40', 8);
         this.textCoins.setShadow(0, 0, '#333333', 2, true, true);
     }
