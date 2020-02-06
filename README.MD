@@ -38,7 +38,7 @@ https://github.com/BigFun123/Mister-Barista/blob/master/src/game/game.js  \
 GameState  \
 https://github.com/BigFun123/Mister-Barista/blob/master/src/game/state.js  \
 Cup Component  \
-https://github.com/BigFun123/Mister-Barista/blob/master/src/game/components/cup.js
+https://github.com/BigFun123/Mister-Barista/blob/master/src/game/components/cup.js  \
 ToggleButton Component  \
 https://github.com/BigFun123/Mister-Barista/blob/master/src/game/components/togglebutton.js
 
@@ -51,3 +51,6 @@ https://github.com/BigFun123/Mister-Barista/blob/master/src/game/components/togg
 
 ## Music
 My Robot by Karl Lilje
+
+## Assets
+https://github.com/BigFun123/Mister-Barista/tree/master/assets
