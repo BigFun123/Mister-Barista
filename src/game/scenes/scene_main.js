@@ -193,6 +193,8 @@ class MainScene extends Phaser.Scene {
             this.tweens.add({
                 targets: tempcup1,
                 y: 420,
+                scaleX: 1.05,
+                scaleY: 1.05,
                 ease: 'Cubic.Out',
                 delay: 0,
                 duration: 200,
@@ -213,6 +215,8 @@ class MainScene extends Phaser.Scene {
             this.tweens.add({
                 targets: tempcup1,
                 y: 420,
+                scaleX: 1.05,
+                scaleY: 1.05,
                 ease: 'Linear',
                 delay: 0,
                 duration: 200,
