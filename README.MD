@@ -24,9 +24,9 @@ Phaser 3.22  \
 Included via CDN in index.html for simplicity  \
 
 ## Scenes
-Menu 
-Main Game
-Scores https://github.com/BigFun123/Mister-Barista/blob/master/src/game/scenes/scene_scores.js
+Menu https://github.com/BigFun123/Mister-Barista/blob/master/src/game/scenes/scene_menu.js  \
+Main Game https://github.com/BigFun123/Mister-Barista/blob/master/src/game/scenes/scene_main.js  \
+Scores https://github.com/BigFun123/Mister-Barista/blob/master/src/game/scenes/scene_scores.js  \
 
 ## Menu Screen
 ![Menu Screen](/doc/screen0.JPG)
