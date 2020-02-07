@@ -20,9 +20,6 @@ var config = {
     }
 };
 
-//var game = new Phaser.Game(config);
-
-
 class Game extends AGame {
     constructor(config) {
         super(config);

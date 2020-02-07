@@ -264,7 +264,6 @@ class MainScene extends Phaser.Scene {
     hideCoin() {
         this.coin.setVisible(false);
     }
-
   
     createText() {
         this.text = this.add.text(10, 10, Constants.gameName());
