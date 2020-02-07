@@ -92,14 +92,12 @@ class MainScene extends Phaser.Scene {
             this.cup2 = new Cup(this, 200, 390, 'cup', 'Americano');
             this.add.existing(this.cup2);
         }
-
         this.initCup(this.cup2, 200, 390, 400, 0);
 
         if ((this.cup3 == null) || reinit == true) {
             this.cup3 = new Cup(this, 400, 390, 'cup', 'Cuppucino');
             this.add.existing(this.cup3);
         }
-
         this.initCup(this.cup3, 400, 390, 600, 0);
 
         this.updateUI();
@@ -165,7 +163,7 @@ class MainScene extends Phaser.Scene {
             this.audioSlide.play();
         }
 
-        this.text.text = "Checking cup...";
+        this.text.text = Constants.checkingCup();
 
         GameServer.GetWin(cup);
     }
@@ -266,8 +264,7 @@ class MainScene extends Phaser.Scene {
     }
   
     createText() {
-        this.text = this.add.text(10, 10, Constants.gameName());
-        //this.textCoins = this.add.text(340, 10, "Coins " + GameServer.GetCoins());
+        this.text = this.add.text(10, 10, Constants.gameName());        
         this.textCoins = this.add.text(250, 50, Constants.coins() + " " + GameServer.GetCoins(), { fontFamily: "Arial Black", fontSize: 54, color: "#964b00"});
         this.textCoins.setStroke('#d68b40', 8);
         this.textCoins.setShadow(0, 0, '#333333', 2, true, true);

@@ -1,7 +1,9 @@
+//TODO: Language Pack loading, Associative array
 var _gameName = "Mister Barista";
 var _version = "v0.01";
 var _winner = "Winner!";
 var _notThisOne = "Not this one... Try Again";
+var _checkingCup = "Checking cup...";
 var _coins = "Coins";
 var _UseMockServer = true; 
 var _LoggingEnabled = true; 
@@ -22,6 +24,9 @@ export default class Constants {
   }
   static notThisOne() {
     return _notThisOne;
+  }
+  static checkingCup() {
+    return _checkingCup;
   }
   static version() {
     return _version;

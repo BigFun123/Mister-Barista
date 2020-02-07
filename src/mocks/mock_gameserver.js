@@ -97,8 +97,7 @@ class MockGameServer extends AGameServer {
      * Lose? take a coin
      * @param {*} ChosenOne 
      */
-    CalculateWin(cup)  {
-        //if ChosenOne === GameOne, then return winner
+    CalculateWin(cup)  {        
         let result = false;
         if ( cup.ObjectID === CurrentTarget ) {
             _Coins++;
