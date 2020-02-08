@@ -5,16 +5,16 @@ var _winner = "Winner!";
 var _notThisOne = "Not this one... Try Again";
 var _checkingCup = "Checking cup...";
 var _coins = "Coins";
-var _UseMockServer = true; 
-var _LoggingEnabled = true; 
-var _CoinOffset = -135;
+var _useMockServer = true; 
+var _loggingEnabled = true; 
+var _coinOffset = -135; //offset of coin above cup
 
 export default class Constants {
   static get useMockServer(){
-    return _UseMockServer;
+    return _useMockServer;
   }
   static get loggingEnabled(){
-    return _LoggingEnabled;
+    return _loggingEnabled;
   }
   static gameName() {
     return _gameName;
@@ -35,6 +35,6 @@ export default class Constants {
     return _coins;
   }
   static get coinOffset() {
-    return _CoinOffset;
+    return _coinOffset;
   }
 }

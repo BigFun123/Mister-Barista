@@ -4,6 +4,7 @@ import AGameServer from './agameserver.js';
  * Not fully implemented for demo
  */
 let _Instance = null;
+let _Coins = 100;
 export default class RealGameServer extends AGameServer {
     constructor() {
         super();

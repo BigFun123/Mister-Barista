@@ -32,7 +32,7 @@ export default class AGameServer extends Phaser.Scene {
         AGameServer._handler.onNewGameReady(reinit)
     }
 
-    CalculateWin(cup,result)  {
+    calculateWin(cup,result)  {
         AGameServer._handler.onGetWinResponse(cup,result)
     }
     

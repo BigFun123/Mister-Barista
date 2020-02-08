@@ -7,8 +7,8 @@ import Log from '../services/log.js';
  ********************************/
 
 let _Coins = 100;
-var CurrentTarget = "";
-var Cups = ["Latte", "Cuppucino", "Americano"];
+var _CurrentTarget = "";
+var _Cups = ["Latte", "Cuppucino", "Americano"];
 var _Seed = 12;
 var _HighScores = [
     {
@@ -33,8 +33,8 @@ class MockGameServer extends AGameServer {
     }
 
     static GetWin(cup) {
-        Log( "Player selected : " + cup.ObjectID + " --- Current Game is :" + CurrentTarget);
-        return MockGameServer._Instance.CalculateWin(cup);
+        Log( "Player selected : " + cup.ObjectID + " --- Current Game is :" + _CurrentTarget);
+        return MockGameServer._Instance.calculateWin(cup);
     }
 
     static GetCoins() {
@@ -74,9 +74,9 @@ class MockGameServer extends AGameServer {
 
     newGame(reinit) {
         Log( "MockGameServer:newGame");
-        var n = MockGameServer.getRndInteger(0,Cups.length-1);
-        CurrentTarget = Cups[n];
-        Log("Current Target:" + CurrentTarget);
+        var n = MockGameServer.getRndInteger(0,_Cups.length-1);
+        _CurrentTarget = _Cups[n];
+        Log("Current Target:" + _CurrentTarget);
         super.newGame(reinit);
     }
 
@@ -97,9 +97,9 @@ class MockGameServer extends AGameServer {
      * Lose? take a coin
      * @param {*} ChosenOne 
      */
-    CalculateWin(cup)  {        
+    calculateWin(cup)  {        
         let result = false;
-        if ( cup.ObjectID === CurrentTarget ) {
+        if ( cup.ObjectID === _CurrentTarget ) {
             _Coins++;
             result = true;            
         }
@@ -108,7 +108,7 @@ class MockGameServer extends AGameServer {
             _Coins>0 ? _Coins-- : _Coins = 0;        
             result = false;
         };        
-        super.CalculateWin(cup,result);
+        super.calculateWin(cup,result);
         return result;
     }
 }

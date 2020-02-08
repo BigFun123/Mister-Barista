@@ -115,6 +115,14 @@ class MainScene extends Phaser.Scene {
         Log(" INPUT UNLOCKED ")
     }
 
+    /**
+     * Initialize a cup
+     * @param {*} cup 
+     * @param {*} px start x
+     * @param {*} py 
+     * @param {*} tx dest x
+     * @param {*} ty 
+     */
     initCup(cup, px, py, tx, ty) {
         cup.setVisible(true);
         cup.setActive(true);
