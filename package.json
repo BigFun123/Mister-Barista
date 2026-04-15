@@ -13,7 +13,7 @@
   },
   "devDependencies": {
     "live-server": "^1.2.1",
-    "webpack": "^4.41.5",
+    "webpack": "^5.106.2",
     "webpack-cli": "^3.3.12"
   }
 }
